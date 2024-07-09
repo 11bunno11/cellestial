@@ -211,49 +211,7 @@ function dataUrItoBlob(dataUri) {
   return new Blob([arrayBuffer], { type: mimeString });
 }
 // Ads
-document.addEventListener("DOMContentLoaded", () => {
-  function adChange(selectedValue) {
-    if (selectedValue === "default") {
-      localStorage.setItem("ads", "on");
-    } else if (selectedValue === "popups") {
-      localStorage.setItem("ads", "popups");
-    } else if (selectedValue === "off") {
-      localStorage.setItem("ads", "off");
-    }
-  }
-
-  const adTypeElement = document.getElementById("adType");
-
-  if (adTypeElement) {
-    adTypeElement.addEventListener("change", function () {
-      const selectedOption = this.value;
-      adChange(selectedOption);
-    });
-
-    const storedAd = localStorage.getItem("ads");
-    if (storedAd === "on") {
-      adTypeElement.value = "default";
-    } else if (storedAd === "popups") {
-      adTypeElement.value = "popups";
-    } else if (storedAd === "off") {
-      adTypeElement.value = "off";
-    } else {
-      adTypeElement.value = "default";
-    }
-  }
-  // Makes the custom icon and name persistent
-  const iconElement = document.getElementById("icon");
-  const nameElement = document.getElementById("name");
-  const customIcon = localStorage.getItem("CustomIcon");
-  const customName = localStorage.getItem("CustomName");
-  iconElement.value = customIcon;
-  nameElement.value = customName;
-
-  if (localStorage.getItem("ab") === "true") {
-    document.getElementById("ab-settings-switch").checked = true;
-  }
-});
-
+//who tf wants ads..
 // Dyn
 document.addEventListener("DOMContentLoaded", () => {
   function pChange(selectedValue) {

@@ -1,52 +1,64 @@
-let inFrame
+let inFrame;
 
 try {
-  inFrame = window !== top
+  inFrame = window !== top;
 } catch (e) {
-  inFrame = true
+  inFrame = true;
 }
-if (!localStorage.getItem("ab")) localStorage.setItem("ab", true)
-if (!inFrame && !navigator.userAgent.includes("Firefox") && localStorage.getItem("ab") === "true") {
-  const popup = open("about:blank", "_blank")
-    const doc = popup.document
-    const iframe = doc.createElement("iframe")
-    const style = iframe.style
-    const link = doc.createElement("link")
+if (!localStorage.getItem("ab")) localStorage.setItem("ab", true);
+if (
+  !inFrame &&
+  !navigator.userAgent.includes("Firefox") &&
+  localStorage.getItem("ab") === "true"
+) {
+  const popup = open("about:blank", "_blank");
+  if (!popup || popup.closed) {
+    alert(
+  "Please allow popups for this site. Doing so will allow us to open the site in a about:blank tab and preventing this site from showing up in your history. You can turn this off in the site settings.\n\nBy using Interstellar services, you confirm you have read and agreed to the terms listed in our Terms of Service and Privacy Policy, which can be found on the bottom of the settings page."
+    );
 
-    const name = localStorage.getItem("name") || "My Drive - Google Drive"
-    const icon = localStorage.getItem("icon") || "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png"
+  } else {
+    const doc = popup.document;
+    const iframe = doc.createElement("iframe");
+    const style = iframe.style;
+    const link = doc.createElement("link");
 
-    doc.title = name
-    link.rel = "icon"
-    link.href = icon
+    const name = localStorage.getItem("name") || "My Drive - Google Drive";
+    const icon =
+      localStorage.getItem("icon") ||
+      "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png";
 
-    iframe.src = location.href
-    style.position = "fixed"
-    style.top = style.bottom = style.left = style.right = 0
-    style.border = style.outline = "none"
-    style.width = style.height = "100%"
+    doc.title = name;
+    link.rel = "icon";
+    link.href = icon;
 
-    doc.head.appendChild(link)
-    doc.body.appendChild(iframe)
+    iframe.src = location.href;
+    style.position = "fixed";
+    style.top = style.bottom = style.left = style.right = 0;
+    style.border = style.outline = "none";
+    style.width = style.height = "100%";
 
-    const pLink = localStorage.getItem(encodeURI("pLink")) || getRandomURL()
-    location.replace(pLink)
+    doc.head.appendChild(link);
+    doc.body.appendChild(iframe);
 
-    const script = doc.createElement("script")
+    const pLink = localStorage.getItem(encodeURI("pLink")) || getRandomUrl();
+    location.replace(pLink);
+
+    const script = doc.createElement("script");
     script.textContent = `
       window.onbeforeunload = function (event) {
         const confirmationMessage = 'Leave Site?';
         (event || window.event).returnValue = confirmationMessage;
         return confirmationMessage;
       };
-    `
-    doc.head.appendChild(script)
+    `;
+    doc.head.appendChild(script);
   }
 }
 // Particles
-document.addEventListener("DOMContentLoaded", (event) => {
+document.addEventListener("DOMContentLoaded", event => {
   if (window.localStorage.getItem("Particles") === "true") {
-    var particlesConfig = {
+    const particlesConfig = {
       particles: {
         number: {
           value: 200,
@@ -155,11 +167,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
         },
       },
       retina_detect: true,
-    }
-    particlesJS("particles-js", particlesConfig)
+    };
+    particlesJS("particles-js", particlesConfig);
   }
-})
-// Splash
+});
+// Splash texts
 const SplashT = [
   "Forked from interstellar",
   "Fastest growing proxy server",
@@ -173,22 +185,22 @@ const SplashT = [
   "Im on BlueSky too! to my Youtube (@11bunno11)",
   "Check out the settings page",
   "Check out my super cool website (https://11bunno11.neocities.org)",
-]
+];
 
-let SplashI = Math.floor(Math.random() * SplashT.length)
-const SplashE = document.getElementById("splash")
+let SplashI = Math.floor(Math.random() * SplashT.length);
+const SplashE = document.getElementById("splash");
 
 function US() {
-  SplashI = (SplashI + 1) % SplashT.length
-  SplashE.innerText = SplashT[SplashI]
+  SplashI = (SplashI + 1) % SplashT.length;
+  SplashE.innerText = SplashT[SplashI];
 }
 
-SplashE.innerText = SplashT[SplashI]
+SplashE.innerText = SplashT[SplashI];
 
-SplashE.addEventListener("click", US)
-
-function getRandomURL() {
-  let randomURLS = [
+SplashE.addEventListener("click", US);
+// Random URL
+function getRandomUrl() {
+  const randomUrls = [
     "https://google.co.jp",
     "https://mail.google.com",
     "https://drive.google.com",
@@ -197,10 +209,10 @@ function getRandomURL() {
     "https://github.com",
     "https://11bunno11.neocities.org/main/me.html",
     "https://yahoo.com",
-  ]
-  return randomURLS[randRange(0, randomURLS.length)]
+  ];
+  return randomUrls[randRange(0, randomUrls.length)];
 }
 
 function randRange(min, max) {
-  return Math.floor(Math.random() * (max - min) + min)
+  return Math.floor(Math.random() * (max - min) + min);
 }

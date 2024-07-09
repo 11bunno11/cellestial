@@ -13,8 +13,7 @@ if (
 ) {
   const popup = open("about:blank", "_blank");
   if (!popup || popup.closed) {
-    alert(
-   );
+    
 
   } else {
     const doc = popup.document;
